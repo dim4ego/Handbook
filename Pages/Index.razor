@@ -1,0 +1,47 @@
+﻿@page "/"
+@using Handbook.Data;
+@using Microsoft.Extensions.Logging
+
+
+<PageTitle>Справочник ООО "Холдинг-Урал-Дон"</PageTitle>
+
+<SurveyPrompt Title="Приветствую дорогой друг!" />
+
+
+@foreach (var item in allUsers)
+{
+    <p>@item</p>
+    
+}
+
+
+
+
+@code {
+    List<string> allUsers = DisplayUser.displayUser();
+
+
+    public static class DisplayUser
+    {
+
+        public static List<string> displayUser()
+        {
+            List<string> listUsers = new List<string>();
+            ApplicationContext db = new ApplicationContext();
+            var users = db.Users.ToList();
+
+            foreach (User u in users)
+            {
+                listUsers.Add($"{u.Id}.{u.Name} {u.Email}");
+                
+
+            }
+            return listUsers;
+        }
+
+       
+    }
+    
+    
+    
+}

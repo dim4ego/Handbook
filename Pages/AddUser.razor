@@ -1,0 +1,85 @@
+﻿@page "/addUser"
+
+@using Handbook.Data;
+@using Microsoft.Extensions.Logging
+
+<PageTitle>Справочник ООО "Холдинг-Урал-Дон"</PageTitle>
+
+<SurveyPrompt Title="Приветствую дорогой друг!" />
+
+
+<h1>@test</h1>
+
+
+<EditForm Model="@myUser" OnSubmit="@HandleSubmit">
+    <InputText class="form-control" placeholder="Введите ФИО в формате Зинченко Дмитрий Николаевич" id="name" @bind-Value="myUser.Name" />
+    <InputText class="form-control" placeholder="Введите Городской телефонный номер" id="CityNumber" @bind-Value="myUser.CityNumber" />
+    <InputText class="form-control" placeholder="Введите местный телефонный номер" id="name" @bind-Value="myUser.LocalNumber" />
+    <InputText class="form-control" placeholder="Введите отдел сотрудника" id="name" @bind-Value="myUser.Department" />
+    <InputText class="form-control" placeholder="Введите электронную почту сотрудника" id="name" @bind-Value="myUser.Email" />
+    <InputText class="form-control" placeholder="Введите логин пользователя" id="name" @bind-Value="myUser.Login" />
+    <InputText class="form-control" placeholder="Введите пароль на вход в Windows " id="name" @bind-Value="myUser.PasswordWin" />
+    <InputText class="form-control" placeholder="Введите пароль на вход в PSI" id="name" @bind-Value="myUser.PasswordPsi" />
+    <InputText class="form-control" placeholder="Введите пароль для почты" id="name" @bind-Value="myUser.PasswordEmail" />
+    <InputText class="form-control" placeholder="Введите любую дополнительную информацию" id="name" @bind-Value="myUser.AnotherInformation" />
+
+    <button type="submit">Добавить пользователя</button>
+</EditForm>
+
+<EditForm Model="@myDepart" OnSubmit="@HandleSubmitDepartament">
+    
+    <InputText class="form-control" placeholder="Введите новый отдел " id="name" @bind-Value="myDepart.Depart" />
+    
+
+    <button type="submit">Добавить отдел</button>
+</EditForm>
+@*
+<EditForm Model="@delDepart" OnSubmit="@HandleDelDepartament">
+    
+    <InputText class="form-control" placeholder="Введите новый отдел " id="name" @bind-Value="myDepart.Depart" />
+    <InputSelect 
+    
+
+    <button type="submit">Добавить отдел</button>
+</EditForm>
+*@
+
+
+@code {
+    string test = "";
+    private User myUser = new();
+    private Department myDepart = new();
+
+    private void HandleSubmit()
+    {
+        CreateUser newUser = new CreateUser();
+        newUser.createUser(myUser.Name, myUser.CityNumber, myUser.LocalNumber, myUser.Department, myUser.Email, myUser.Login, myUser.PasswordWin, myUser.PasswordPsi, myUser.PasswordEmail, myUser.AnotherInformation);
+
+        test = "Сработала обработка ";
+
+        // Process the form
+    }
+
+    private void HandleSubmitDepartament()
+    {
+        
+        CreateDepart newDepartment = new CreateDepart();
+
+        newDepartment.createDepart(myDepart.Depart);
+
+        test = "Сработала обработка ";
+
+        // Process the form
+    }
+    //private void HandleDelDepartament()
+    //{
+
+    //    CreateDepart newDepartment = new CreateDepart();
+
+    //    newDepartment.createDepart(myDepart.Depart);
+
+    //    test = "Сработала обработка ";
+
+    //    // Process the form
+    //}
+}
